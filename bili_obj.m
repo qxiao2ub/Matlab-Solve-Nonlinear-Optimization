@@ -1,0 +1,11 @@
+fun= @(x) -(2*x(1)*x(2)+(4*x(1)^2*x(2)^2+16*x(1)*x(4)*x(3)^2)^(1/2))/2*x(3)^2;
+x0 = [278.5,-.99,0.1,299.7];
+A =[0,1,0,0;0,1,0,0;0,0,1,0;0,0,1,0;0,0,0,1]
+b =[]
+lb = [ 278.4,-1,0,299.8];
+ub = [ 280.8,-0.866,0.499,301];
+nonlcon = @bili_nonli;
+%options = optimset('largescale','off');
+options = optimoptions('fmincon','Display','iter','Algorithm','sqp');
+%options = optimoptions('fmincon','MaxIter',1,'Display','iter')
+[xmin,fmin] = fmincon(fun,x0,[],[],[],[],lb,ub,nonlcon,options);
